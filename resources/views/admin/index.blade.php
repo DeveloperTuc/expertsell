@@ -66,9 +66,8 @@
         </div>
         <!-- /.info-box -->
     </div>
-
-
 </div>
+
 <div class="row">
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP">
@@ -79,6 +78,21 @@
             <div class="info-box-content">
                 <span class="info-box-text">Proveedores registrados</span>
                 <span class="info-box-number">{{ $total_proveedores }} proveedores</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP">
+            <a href="{{ url('/admin/compras') }}" class="info-box-icon bg-danger">
+                <span><i class="fas fa-shopping-cart"></i></span>
+            </a>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Compras registradas</span>
+                <span class="info-box-number">{{ $total_compras }} compras</span>
             </div>
             <!-- /.info-box-content -->
         </div>

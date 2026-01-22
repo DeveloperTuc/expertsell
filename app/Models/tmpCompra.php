@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tmpCompra extends Model
+class TmpCompra extends Model
 {
     //
     public function producto(){

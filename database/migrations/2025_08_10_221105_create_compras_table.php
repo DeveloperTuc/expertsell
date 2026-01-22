@@ -20,6 +20,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('empresa_id');
 
+            $table->unsignedBigInteger('proveedor_id');
+            $table->foreign('proveedor_id')->references('id')->on('proveedores')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

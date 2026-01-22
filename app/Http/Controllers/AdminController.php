@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Proveedor;
+use App\Models\Compra;
 
 class AdminController extends Controller
 {
@@ -32,11 +33,20 @@ class AdminController extends Controller
 
         $total_proveedores = Proveedor::count();
 
+        $total_compras = Compra::count();
+
         //$empresa = DB::table('empresas')->where('id', $empresa_id )->get(); utiliza Query Builder
         //$empresa = Empresa::where('id', $empresa_id)->first(); utiliza modelo Eloquent
         $empresa = Empresa::find($empresa_id); //Utiliza modelo Eloquent
 
-        return view('admin.index', compact('empresa', 'total_roles', 'total_usuarios', 'total_categorias', 'total_productos', 'total_proveedores'));
+        return view('admin.index', compact('empresa', 
+                                        'total_roles', 
+                                                    'total_usuarios', 
+                                                    'total_categorias', 
+                                                    'total_productos', 
+                                                    'total_proveedores',
+                                                    'total_compras'
+                                                    ));
     }
 
 

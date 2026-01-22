@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class detalleCompra extends Model
+class DetalleCompra extends Model
 {
     //
 
@@ -16,7 +16,9 @@ class detalleCompra extends Model
         return $this->belongsTo(Producto::class);
     }
 
+    /*
     public function proveedor(){
         return $this->belongsTo(Proveedor::class);
     }
+    */
 }

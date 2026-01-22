@@ -15,7 +15,8 @@
             <!-- /.card-header -->
             <div class="card-body col-md-12">
                 <div class="row">
-                    <table id="mi_tabla" class="table table-sm table-striped table-bordered table-hover col-md-6">
+                    <div class="col-md-6">
+                    <table id="mi_tabla" class="table table-sm table-striped table-bordered table-hover">
                         <thead class="table-dark">
                             <th scope="col">Nro</th>
                             <th scope="col">Código</th>
@@ -32,9 +33,9 @@
                                     <td style="text-align: center">{{ $detalle->producto->codigo }}</td>
                                     <td style="text-align: center">{{ $detalle->producto->nombre }}</td>
                                     <td style="text-align: center">{{ $detalle->cantidad }}</td>
-                                    <td style="text-align: center">$ {{ $detalle->precio_producto }}</td>
+                                    <td style="text-align: center">$ {{ $detalle->producto->precio_compra }}</td>
                                     <td style="text-align: center">$
-                                        {{ $costo = $detalle->precio_producto * $detalle->cantidad }}
+                                        {{ $costo = $detalle->producto->precio_compra * $detalle->cantidad }}
                                     </td>
                                 </tr>
                                 @php
@@ -51,23 +52,29 @@
                             <td style="text-align: center"><b>$ {{ $total }}</b></td>
                         </tfooter>
                     </table>
+                    </div>
                     <div class="col-md-6 mt-5 ms-2 p-2">
-                        <div class="row">
-                            <label for="" class="form-control col-md-4">Fecha</label>
-                            <input type="date" class="form-control col-md-6" value="{{ $compra->fecha }}" name="fecha" disabled>
+                        <div class="row mb-2">
+                            <label for="" class="form-control-label col-md-3" style="text-align:right">Fecha</label>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" value="{{ $compra->fecha }}" name="fecha" disabled>
+                            </div>
                         </div>
-                        <div class="row">
-                            <label for="" class="form-control col-md-4">Comprobante</label>
-                            <input type="text" class="form-control col-md-6" value="{{ $compra->comprobante }}" name="comprobante" disabled>
+                        <div class="row mb-2">
+                            <label for="" class="form-control-label col-md-3" style="text-align:right;">Comprobante</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control col-md-6" value="{{ $compra->comprobante }}" name="comprobante" disabled>
+                            </div>
                         </div>
-                        <div class="row">
-                            <label for="" class="form-control col-md-4">Proveedor</label>
-                            <input type="text" class="form-control col-md-6" value="{{ $compra->detalles->first()->proveedor->empresa }}" name="proveedor" disabled>
+                        <div class="row mb-2">
+                            <label for="" class="form-control-label col-md-3" style="text-align:right">Proveedor</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="{{ $compra->proveedor?->empresa }}" name="proveedor" disabled>
+                            </div>
                         </div>
                     </div>
                     <hr>
                 </div>
-
                 <hr>
                 <div class="row">
                     <div class="col-md-3">
@@ -224,31 +231,6 @@
             "infoPostFix": "",
             "thousands": ",",
             "lengthMenu": "Mostrar _MENU_ productos",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando... ",
-            "search": "Filtrar:",
-            "zeroRecords": "Sin resultados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior",
-            }
-        },
-    });
-</script>
-
-<script>
-    $('#mitabla2').DataTable({
-        "pageLength": 3,
-        "language": {
-            "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ proveedores",
-            "infoEmpty": "Mostrando de 0 a 0 de 0 Proveedores",
-            "infoFiltered": "(Filtrado de _MAX_ total proveedores)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ proveedores",
             "loadingRecords": "Cargando...",
             "processing": "Procesando... ",
             "search": "Filtrar:",

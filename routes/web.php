@@ -123,6 +123,12 @@ Route::put('/admin/compras/{id}', [App\Http\Controllers\CompraController::class,
 
 Route::delete('/admin/compras/{id}', [App\Http\Controllers\CompraController::class, 'destroy'])->name('admin.compras.destroy')->middleware('auth');
 
+//Rutas para  detalles de las compras
+Route::delete('/admin/compras/detalle/{id}', [App\Http\Controllers\DetalleCompraController::class, 'destroy'])->name('admin.compras.detalle.destroy')->middleware('auth');
+Route::post('/admin/compras/detalle', [App\Http\Controllers\DetalleCompraController::class, 'store'])->name('admin.compras.detalle.store')->middleware('auth');
+
+
 //Rutas para tmp compras
 Route::post('/admin/compras/create/tmp', [App\Http\Controllers\TmpCompraController::class, 'tmp_compras'])->name('admin.compras.tmp_compras')->middleware('auth');
 Route::delete('/admin/compras/create/tmp/{id}', [App\Http\Controllers\TmpCompraController::class, 'destroy'])->name('admin.compras.tmp_compras.destroy')->middleware('auth');
+

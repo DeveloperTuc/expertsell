@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\detalleCompra;
+use App\Models\DetalleCompra;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use Illuminate\Database\Eloquent\Relations\BelongsTo; 
@@ -15,18 +15,17 @@ class Compra extends Model
     use hasFactory;
 
     public function detalles(){
-        return $this->hasMany(detalleCompra::class);
+        return $this->hasMany(DetalleCompra::class);
     }
 
-    // Define la relación con Producto
+    
     public function productos(): BelongsTo
     {
-        return $this->belongsTo(Producto::class);//, 'id_producto'
+        return $this->belongsTo(Producto::class);
     }
 
-    // Asegúrate de tener también la de proveedor ya que la usas en el with()
-    public function proveedores(): BelongsTo
+    public function proveedor(): BelongsTo
     {
-        return $this->belongsTo(Proveedor::class);//, 'id_proveedor'
+        return $this->belongsTo(Proveedor::class);
     }
 }

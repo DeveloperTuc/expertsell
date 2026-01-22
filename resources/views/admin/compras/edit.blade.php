@@ -8,15 +8,16 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <div class="card card-outline card-primary">
+        <div class="card card-outline card-success">
             <div class="card-header">
                 <h3 class="card-title">Ingrese los datos</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{url('/admin/compras',$compra->id)}}" id="" method="post" autocomplete="off">
+                <form action="{{url('/admin/compras',$compra->id)}}" id="form_compra" method="post" autocomplete="off">
                     @csrf
                     @method('PUT')
+                    <input type="text" value="{{ $compra->id }}" id="id_compra" name="id_compra" hidden>
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
@@ -69,6 +70,7 @@
                                                     <thead class="table-dark">
                                                         <tr>
                                                             <th scope="col" style="text-align: center">Nro</th>
+                                                            <th scope="col" style="text-align: center">Acción</th>
                                                             <th scope="col">Código</th>
                                                             <th scope="col">Nombre del producto</th>
                                                             <th scope="col">Categoría</th>
@@ -76,7 +78,6 @@
                                                             <th scope="col">Stock</th>
                                                             <th scope="col">Precio</th>
                                                             <th scope="col">Imagen</th>
-                                                            <th scope="col" style="text-align: center">Acción</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -103,9 +104,20 @@
                                                                     {{ $producto->precio_venta }}
                                                                 </td>
                                                                 <td style="text-align: center">
-                                                                    <img src="{{ asset('storage/' . $producto->imagen) }}"
+                                                                    <!--<img src="{{ asset('storage/' . $producto->imagen) }}"
                                                                         width="100px" height="50px"
-                                                                        alt="imagen de producto">
+                                                                        alt="imagen de producto">-->
+                                                                    @if(!empty($producto->imagen))
+                                                                        <img src="{{ asset('storage/' . $producto->imagen) }}"
+                                                                            width="100px" height="50px"
+                                                                            alt="imagen de producto">
+                                                                    @else
+                                                                        <!-- Imagen por defecto o placeholder si no hay imagen -->
+                                                                        <!--<img src="{{ asset('img/no-image.png') }}" 
+                                                                            width="100px" height="50px" 
+                                                                            alt="sin imagen">-->
+                                                                        <span class="badge badge-secondary">Sin imagen</span>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -202,9 +214,9 @@
                                         <td style="text-align: center">{{ $detalle->producto->codigo }}</td>
                                         <td style="text-align: center">{{ $detalle->producto->nombre }}</td>
                                         <td style="text-align: center">{{ $detalle->cantidad }}</td>
-                                        <td style="text-align: center">$ {{ $detalle->precio_producto }}</td>
+                                        <td style="text-align: center">$ {{ $detalle->producto->precio_compra }}</td>
                                         <td style="text-align: center">$
-                                            {{ $costo = $detalle->precio_producto * $detalle->cantidad }}
+                                            {{ $costo = $detalle->producto->precio_compra * $detalle->cantidad }}
                                         </td>
                                         <td style="text-align: center">
                                             <button type="button" class="btn btn-danger delete-btn"
@@ -212,7 +224,7 @@
                                         </td>
                                     </tr>
                                     @php
-                                        $total_cantidad += $compra->cantidad;
+                                        $total_cantidad += $detalle->cantidad;
                                         $total_compra += $costo;
                                     @endphp
                                 @endforeach
@@ -221,7 +233,8 @@
                                 <td colspan="3" style="text-align: right"><b>Total Cantidad</b></td>
                                 <td style="text-align: center"><b>{{ $total_cantidad }}</b></td>
                                 <td style="text-align: right"><b>Total Compra</b></td>
-                                <td colspan="2" style="text-align: center"><b>$ {{ $total_compra }}</b></td>
+                                <td style="text-align: center"><b>$ {{ $total_compra }}</b></td>
+                                <td></td>
                             </tfooter>
                         </table>
                         <hr>
@@ -251,12 +264,12 @@
                                     <i class="fas fa-search"></i> Buscar Proveedor
                                 </button> 
                                 <div class="col-md-6">
-                                    <input id="nombre_proveedor" value="{{ $detalle->proveedor->empresa }}" type="text" class="form-control font-weight-bold"
+                                    <input id="nombre_proveedor" value="{{ $compra->proveedor->empresa }}" type="text" class="form-control font-weight-bold"
                                         name="nombre_proveedor" required readonly>
                                     @error('nombre_proveedor')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                    <input type="text" class="form-control" id="id_proveedor" value="{{ $detalle->proveedor_id }}" name="id_proveedor" hidden>
+                                    <input type="text" class="form-control" id="id_proveedor" value="{{ $compra->proveedor_id }}" name="id_proveedor" hidden>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -326,10 +339,10 @@
 
     $('.delete-btn').click(function () {
         var id = $(this).data('id');
-
+        console.log(id);
         if (id) {
             $.ajax({
-                url: "{{ url('/admin/compras/create/tmp') }}/" + id,
+                url: "{{ url('/admin/compras/detalle') }}/" + id,
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -377,15 +390,19 @@
         if (e.which === 13) {
             var codigo = $(this).val();
             var cantidad = $('#cantidad').val();
+            var id_compra = $('#id_compra').val();
+            var id_proveedor = $('#id_proveedor').val();
 
             if (codigo.length > 0 && cantidad > 0) {
                 $.ajax({
-                    url: "{{ route('admin.compras.tmp_compras') }}",
+                    url: "{{ route('admin.compras.detalle.store') }}",
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
                         codigo: codigo,
-                        cantidad: cantidad
+                        cantidad: cantidad,
+                        id_compra: id_compra,
+                        id_proveedor: id_proveedor
                     },
                     beforeSend: function () {
                         $('#codigo').prop('disabled', true);
