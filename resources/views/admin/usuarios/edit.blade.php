@@ -73,7 +73,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>
                                 Registrar
                             </button>
                         </div>

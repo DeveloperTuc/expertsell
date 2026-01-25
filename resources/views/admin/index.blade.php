@@ -24,13 +24,13 @@
 
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP">
-            <a href="{{ url('/admin/usuarios') }}" class="info-box-icon bg-primary">
+            <a href="{{ url('/admin/usuarios') }}" class="info-box-icon bg-info">
                 <span><i class="fas fa-users"></i></span>
             </a>
 
             <div class="info-box-content">
                 <span class="info-box-text">Usuarios registrados</span>
-                <span class="info-box-number">{{ $total_usuarios }} usuarios</span>
+                <span class="info-box-users">{{ $total_usuarios }} usuarios</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -93,6 +93,21 @@
             <div class="info-box-content">
                 <span class="info-box-text">Compras registradas</span>
                 <span class="info-box-number">{{ $total_compras }} compras</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP">
+            <a href="{{ url('/admin/clientes') }}" class="info-box-icon bg-danger">
+                <span><i class="fas fa-shopping-cart"></i></span>
+            </a>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Clientes registrados</span>
+                <span class="info-box-number">{{ $total_clientes }} clientes</span>
             </div>
             <!-- /.info-box-content -->
         </div>

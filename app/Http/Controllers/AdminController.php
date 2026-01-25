@@ -12,6 +12,7 @@ use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\Compra;
+use App\Models\Cliente;
 
 class AdminController extends Controller
 {
@@ -35,6 +36,8 @@ class AdminController extends Controller
 
         $total_compras = Compra::count();
 
+        $total_clientes = Cliente::count();
+
         //$empresa = DB::table('empresas')->where('id', $empresa_id )->get(); utiliza Query Builder
         //$empresa = Empresa::where('id', $empresa_id)->first(); utiliza modelo Eloquent
         $empresa = Empresa::find($empresa_id); //Utiliza modelo Eloquent
@@ -45,7 +48,8 @@ class AdminController extends Controller
                                                     'total_categorias', 
                                                     'total_productos', 
                                                     'total_proveedores',
-                                                    'total_compras'
+                                                    'total_compras',
+                                                    'total_clientes'
                                                     ));
     }
 
