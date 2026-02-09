@@ -14,7 +14,7 @@
             </a>
 
             <div class="info-box-content">
-                <span class="info-box-text">Roles registrados</span>
+                <span class="info-box-text">Roles</span>
                 <span class="info-box-number">{{ $total_roles }} roles</span>
             </div>
             <!-- /.info-box-content -->
@@ -24,12 +24,12 @@
 
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP">
-            <a href="{{ url('/admin/usuarios') }}" class="info-box-icon bg-info">
+            <a href="{{ url('/admin/usuarios') }}" class="info-box-icon bg-dark">
                 <span><i class="fas fa-users"></i></span>
             </a>
 
             <div class="info-box-content">
-                <span class="info-box-text">Usuarios registrados</span>
+                <span class="info-box-text">Usuarios</span>
                 <span class="info-box-users">{{ $total_usuarios }} usuarios</span>
             </div>
             <!-- /.info-box-content -->
@@ -44,7 +44,7 @@
             </a>
 
             <div class="info-box-content">
-                <span class="info-box-text">Categorías registradas</span>
+                <span class="info-box-text">Categorías</span>
                 <span class="info-box-number">{{ $total_categorias }} categorias</span>
             </div>
             <!-- /.info-box-content -->
@@ -59,7 +59,7 @@
             </a>
 
             <div class="info-box-content">
-                <span class="info-box-text">Productos registrados</span>
+                <span class="info-box-text">Productos</span>
                 <span class="info-box-number">{{ $total_productos }} productos</span>
             </div>
             <!-- /.info-box-content -->
@@ -71,12 +71,12 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP">
-            <a href="{{ url('/admin/proveedores') }}" class="info-box-icon bg-secondary">
+            <a href="{{ url('/admin/proveedores') }}" class="info-box-icon bg-primary">
                 <span><i class="fas fa-user-tie"></i></span>
             </a>
 
             <div class="info-box-content">
-                <span class="info-box-text">Proveedores registrados</span>
+                <span class="info-box-text">Proveedores</span>
                 <span class="info-box-number">{{ $total_proveedores }} proveedores</span>
             </div>
             <!-- /.info-box-content -->
@@ -91,7 +91,7 @@
             </a>
 
             <div class="info-box-content">
-                <span class="info-box-text">Compras registradas</span>
+                <span class="info-box-text">Compras</span>
                 <span class="info-box-number">{{ $total_compras }} compras</span>
             </div>
             <!-- /.info-box-content -->
@@ -101,13 +101,28 @@
 
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP">
-            <a href="{{ url('/admin/clientes') }}" class="info-box-icon bg-danger">
-                <span><i class="fas fa-shopping-cart"></i></span>
+            <a href="{{ url('/admin/clientes') }}" class="info-box-icon bg-info">
+                <span><i class="fas fa-users"></i></span>
             </a>
 
             <div class="info-box-content">
-                <span class="info-box-text">Clientes registrados</span>
+                <span class="info-box-text">Clientes</span>
                 <span class="info-box-number">{{ $total_clientes }} clientes</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP">
+            <a href="{{ url('/admin/ventas') }}" class="info-box-icon bg-success">
+                <span><i class="fas fa-cash-register"></i></span>
+            </a>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Ventas</span>
+                <span class="info-box-number">{{ $total_ventas }} ventas</span>
             </div>
             <!-- /.info-box-content -->
         </div>

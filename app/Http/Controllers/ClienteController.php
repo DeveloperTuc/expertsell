@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClienteController extends Controller
 {
@@ -12,7 +13,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::all();
+        $empresa_id = Auth::user()->empresa_id;
+        $clientes = Cliente::where('empresa_id', $empresa_id)->get();
 
         return view('admin.clientes.index', compact('clientes'));
     }
@@ -45,6 +47,8 @@ class ClienteController extends Controller
         $cliente->identificacion_tributaria = $request->identificacion_tributaria;
         $cliente->telefono = $request->telefono;
         $cliente->email = $request->email;
+        $cliente->empresa_id = Auth::user()->empresa_id;
+
 
         $cliente->save();
 
@@ -94,6 +98,8 @@ class ClienteController extends Controller
         $cliente->identificacion_tributaria = $request->identificacion_tributaria;
         $cliente->telefono = $request->telefono;
         $cliente->email = $request->email;
+        $cliente->empresa_id = Auth::user()->empresa_id;
+
 
         $cliente->save();
 

@@ -19,7 +19,8 @@ class CompraController extends Controller
      */
     public function index()
     {
-        $compras = Compra::with('detalles')->get();
+        $empresa_id = Auth::user()->empresa_id;
+        $compras = Compra::with('proveedor')->where('empresa_id', $empresa_id)->get();
 
         return view('admin.compras.index', compact('compras'));
     }
@@ -104,9 +105,10 @@ class CompraController extends Controller
      */
     public function edit($id)
     {
+        $empresa_id = Auth::user()->empresa_id;
         $compra = Compra::with('detalles', 'proveedor')->findOrFail($id);
-        $productos = Producto::all();
-        $proveedores = Proveedor::all();
+        $productos = Producto::where('empresa_id', $empresa_id)->get();
+        $proveedores = Proveedor::where('empresa_id', $empresa_id)->get();
 
         return view('admin.compras.edit', compact('compra', 'productos', 'proveedores'));
     }

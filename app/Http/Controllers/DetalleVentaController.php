@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetalleCompra;
-use App\Models\Compra;
+use App\Models\DetalleVenta;
 use App\Models\Producto;
-
 use Illuminate\Http\Request;
 
-class DetalleCompraController extends Controller
+class DetalleVentaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,33 +30,32 @@ class DetalleCompraController extends Controller
     public function store(Request $request)
     {
         $producto = Producto::where('codigo', $request->codigo)->first();
-        $compra_id = $request->id_compra;
+        $venta_id = $request->id_venta;
 
         if ($producto) {
 
-            $detalle_compra_existe = DetalleCompra::where('producto_id', $producto->id)
-                ->where('compra_id', $compra_id)
+            $detalle_venta_existe = DetalleVenta::where('producto_id', $producto->id)
+                ->where('venta_id', $venta_id)
                 ->first();
 
-            if ($detalle_compra_existe) {
+            if ($detalle_venta_existe) {
+                $detalle_venta_existe->cantidad += $request->cantidad;
 
-                $detalle_compra_existe->cantidad += $request->cantidad;
+                $detalle_venta_existe->save();
 
-                $detalle_compra_existe->save();
-
-                $producto->stock += $request->cantidad;
+                $producto->stock -= $request->cantidad;
                 $producto->save();
 
                 return response()->json(['success' => true, 'message' => 'Producto encontrado']);
             } else {
-                $detalle_compra = new DetalleCompra();
-                $detalle_compra->cantidad = $request->cantidad;
-                $detalle_compra->compra_id = $compra_id;
-                $detalle_compra->producto_id = $producto->id;
+                $detalle_venta = new DetalleVenta();
+                $detalle_venta->cantidad = $request->cantidad;
+                $detalle_venta->venta_id = $venta_id;
+                $detalle_venta->producto_id = $producto->id;
 
-                $detalle_compra->save();
+                $detalle_venta->save();
 
-                $producto->stock += $request->cantidad;
+                $producto->stock -= $request->cantidad;
                 $producto->save();
 
                 return response()->json(['success' => true, 'message' => 'Producto encontrado']);
@@ -71,7 +68,7 @@ class DetalleCompraController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(detalleCompra $detalleCompra)
+    public function show(DetalleVenta $detalleVenta)
     {
         //
     }
@@ -79,7 +76,7 @@ class DetalleCompraController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(detalleCompra $detalleCompra)
+    public function edit(DetalleVenta $detalleVenta)
     {
         //
     }
@@ -87,7 +84,7 @@ class DetalleCompraController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, detalleCompra $detalleCompra)
+    public function update(Request $request, DetalleVenta $detalleVenta)
     {
         //
     }
@@ -97,9 +94,9 @@ class DetalleCompraController extends Controller
      */
     public function destroy($id)
     {
-        $detalle = DetalleCompra::find($id);
+        $detalle = DetalleVenta::find($id);
 
-        DetalleCompra::destroy($detalle->id);
+        DetalleVenta::destroy($detalle->id);
 
         return response()->json(['success'=>true]);
     }
